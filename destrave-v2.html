@@ -1408,41 +1408,54 @@ async function enviarIntencao() {
     });
   } catch(e) {}
 
-  // Mostra tela de pagamento
-  document.getElementById('form-wrap').style.display = 'none';
-  const successEl = document.getElementById('form-success');
-  
+  // Monta mensagem com todos os dados para o WhatsApp
   const primeiroNome = nome.split(' ')[0];
-  const wppMsg = encodeURIComponent(
-    `Olá Vânia! Sou ${nome} e acabei de realizar o pagamento da imersão Destrave Seu Potencial. Segue meu comprovante!`
+
+  const msgWpp = encodeURIComponent(
+    'Olá Vânia! Tenho interesse em participar do Destrave Seu Potencial.' +
+    '\n\n' +
+    '*Meus dados:*' +
+    '\nNome: ' + nome +
+    '\nWhatsApp: ' + whatsapp +
+    '\nE-mail: ' + email +
+    '\nCidade: ' + cidade +
+    (instagram && instagram !== '—' ? '\nInstagram: ' + instagram : '') +
+    '\nComo conheceu: ' + (como || '—') +
+    '\nValor: ' + valor
   );
 
-  successEl.innerHTML = `
+  const linkWpp = 'https://wa.me/' + WPP_NUM + '?text=' + msgWpp;
+
+  // Mostra tela de confirmação
+  document.getElementById('form-wrap').style.display = 'none';
+  const successEl = document.getElementById('form-success');
+
+  successEl.innerHTML = \`
     <div class="success-line"></div>
-    <div class="success-title" style="margin-bottom:8px">${primeiroNome}, seu cadastro foi registrado.</div>
-    <p class="success-text">Agora finalize sua inscrição realizando o pagamento abaixo.</p>
+    <div class="success-title" style="margin-bottom:8px">\${primeiroNome}, cadastro registrado.</div>
+    <p class="success-text">O próximo passo é falar com Vânia pelo WhatsApp para confirmar sua vaga e realizar o pagamento.</p>
 
-    <div style="background:var(--beige);padding:24px 28px;margin-bottom:24px;text-align:left">
+    <div style="background:var(--beige);padding:20px 24px;margin-bottom:24px;text-align:left">
       <div style="font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Seu investimento</div>
-      <div style="font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:300;color:var(--ink);line-height:1;margin-bottom:4px">${valor}</div>
-      <div style="font-size:0.78rem;color:var(--muted)">${indicacao ? 'Valor especial · Indicação de participante' : 'PIX à vista · ou 3x de R$ 99 no cartão'}</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:300;color:var(--ink);line-height:1;margin-bottom:4px">\${valor}</div>
+      <div style="font-size:0.78rem;color:var(--muted)">\${indicacao ? 'Valor especial · Indicação de participante' : 'PIX à vista · ou 3x de R$ 99 no cartão'}</div>
     </div>
 
-    <a href="${linkPgto}" target="_blank" style="display:block;text-decoration:none;text-align:center;margin-bottom:16px;padding:16px 20px;background:#6B2337;color:#FDFAF7;font-family:'DM Sans',sans-serif;font-size:0.72rem;letter-spacing:0.24em;text-transform:uppercase;cursor:pointer;">
-      Realizar Pagamento Agora
+    <a href="\${linkWpp}" target="_blank" style="display:block;text-decoration:none;text-align:center;padding:16px 20px;background:#25D366;color:#fff;font-family:'DM Sans',sans-serif;font-size:0.76rem;letter-spacing:0.22em;text-transform:uppercase;margin-bottom:12px">
+      Falar com Vânia no WhatsApp
     </a>
 
-    <div style="background:var(--warm);border:1px solid var(--beige);padding:20px 24px;text-align:left;margin-bottom:20px">
-      <div style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Importante</div>
-      <p style="font-size:0.82rem;color:var(--muted);line-height:1.7;margin:0">Após o pagamento, envie o comprovante para o WhatsApp da Vânia para validar o seu acesso e receber todas as informações do evento.</p>
-    </div>
-
-    <a href="https://wa.me/${WPP_NUM}?text=${wppMsg}" target="_blank" class="btn-wpp" style="display:block;text-align:center">
-      Enviar Comprovante pelo WhatsApp
-    </a>
-  `;
+    <p style="font-size:0.74rem;color:var(--muted);text-align:center;line-height:1.6">
+      Ao clicar, o WhatsApp abre com todos os seus dados já preenchidos na mensagem.
+    </p>
+  \`;
 
   successEl.classList.add('show');
+
+  // Abre WhatsApp automaticamente após 1.5s
+  setTimeout(function() {
+    window.open(linkWpp, '_blank');
+  }, 1500);
 }
 
 function showToast(msg) {
