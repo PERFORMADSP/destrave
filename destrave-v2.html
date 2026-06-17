@@ -1308,16 +1308,16 @@ footer {
       </div>
 
       <div class="form-group">
-        <label>Como conheceu o Destrave?</label>
-        <select id="int_como">
+        <label>Como conheceu o Destrave? *</label>
+        <select id="int_como" onchange="toggleIndicacao(this.value)">
           <option value="" disabled selected>Selecione</option>
-          <option>Instagram da Vânia</option>
-          <option>Indicação de participante</option>
-          <option>WhatsApp</option>
-          <option>Google</option>
-          <option>Participei de edição anterior</option>
-          <option>Outro</option>
+          <option value="Indicação">Indicação</option>
+          <option value="Instagram">Instagram</option>
         </select>
+      </div>
+      <div class="form-group" id="campo_indicacao" style="display:none">
+        <label>Quem te indicou? *</label>
+        <input type="text" id="int_indicacao" placeholder="Nome de quem indicou">
       </div>
 
       <div class="lgpd-row">
@@ -1367,11 +1367,16 @@ async function enviarIntencao() {
   const como      = document.getElementById('int_como').value;
   const lgpd      = document.getElementById('int_lgpd').checked;
 
+  const indicacao_nome = document.getElementById('int_indicacao').value.trim();
+
   if (!nome || !whatsapp || !email || !cidade) {
     showToast('Preencha os campos obrigatórios.'); return;
   }
   if (!como) {
     showToast('Informe como conheceu o Destrave.'); return;
+  }
+  if (como === 'Indicação' && !indicacao_nome) {
+    showToast('Informe quem te indicou.'); return;
   }
   if (!lgpd) {
     showToast('Aceite a Política de Privacidade para continuar.'); return;
@@ -1382,7 +1387,7 @@ async function enviarIntencao() {
   btn.disabled = true;
 
   // Lógica de preço
-  const indicacao = como === 'Indicação de participante';
+  const indicacao = como === 'Indicação';
   const valor     = indicacao ? VALOR_199 : VALOR_297;
 
   const payload = {
@@ -1390,7 +1395,7 @@ async function enviarIntencao() {
     timestamp: new Date().toLocaleString('pt-BR'),
     nome, whatsapp, email, cidade,
     instagram: instagram || '—',
-    comoConheceu: como,
+    comoConheceu: como === 'Indicação' ? 'Indicação — ' + indicacao_nome : como,
     valor,
     status: 'Aguardando pagamento'
   };
@@ -1417,7 +1422,7 @@ async function enviarIntencao() {
     '\nE-mail: ' + email +
     '\nCidade: ' + cidade +
     (instagram && instagram !== '—' ? '\nInstagram: ' + instagram : '') +
-    '\nComo conheceu: ' + (como || '—') +
+    '\nComo conheceu: ' + (como === 'Indicação' ? 'Indicação de ' + indicacao_nome : como) +
     '\nValor pago: ' + valor
   );
 
@@ -1467,6 +1472,14 @@ async function enviarIntencao() {
   setTimeout(function() {
     window.open(linkWpp, '_blank');
   }, 1500);
+}
+
+function toggleIndicacao(val) {
+  const campo = document.getElementById('campo_indicacao');
+  campo.style.display = val === 'Indicação' ? 'block' : 'none';
+  if (val !== 'Indicação') {
+    document.getElementById('int_indicacao').value = '';
+  }
 }
 
 function showToast(msg) {
