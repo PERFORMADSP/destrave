@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
@@ -1271,6 +1272,10 @@ footer {
       <span class="invest-label">Investimento</span>
       <span class="invest-price">R$ 297</span>
       <div class="invest-parcela">ou <strong>3x de R$ 99</strong> no cartão · PIX à vista</div>
+      <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--beige);font-size:0.78rem;color:var(--muted);line-height:1.6">
+        Veio por indicação de uma participante?<br>
+        <strong style="color:var(--bordeaux)">R$ 199</strong> — valor especial aplicado automaticamente
+      </div>
     </div>
   </div>
 
@@ -1311,7 +1316,7 @@ footer {
         <select id="int_como">
           <option value="" disabled selected>Selecione</option>
           <option>Instagram da Vânia</option>
-          <option>Indicação de amiga</option>
+          <option>Indicação de participante</option>
           <option>WhatsApp</option>
           <option>Google</option>
           <option>Participei de edição anterior</option>
@@ -1352,36 +1357,49 @@ footer {
 
 <script>
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyPjLbjYsArG1R7CpkzlxcZ9VK4-4dihrjemyyz1IVvsyYVWQPirhu8XugpomSFfXx55w/exec';
+const LINK_199 = 'https://mpago.la/1qCkjhy';
+const LINK_297 = 'https://mpago.li/1nzfn3';
+const WPP_NUM  = '5585984852476';
 
 async function enviarIntencao() {
-  const nome     = document.getElementById('int_nome').value.trim();
-  const whatsapp = document.getElementById('int_whatsapp').value.trim();
-  const email    = document.getElementById('int_email').value.trim();
-  const cidade   = document.getElementById('int_cidade').value.trim();
-  const instagram= document.getElementById('int_instagram').value.trim();
-  const como     = document.getElementById('int_como').value;
-  const lgpd     = document.getElementById('int_lgpd').checked;
+  const nome      = document.getElementById('int_nome').value.trim();
+  const whatsapp  = document.getElementById('int_whatsapp').value.trim();
+  const email     = document.getElementById('int_email').value.trim();
+  const cidade    = document.getElementById('int_cidade').value.trim();
+  const instagram = document.getElementById('int_instagram').value.trim();
+  const como      = document.getElementById('int_como').value;
+  const lgpd      = document.getElementById('int_lgpd').checked;
 
   if (!nome || !whatsapp || !email || !cidade) {
     showToast('Preencha os campos obrigatórios.'); return;
+  }
+  if (!como) {
+    showToast('Informe como conheceu o Destrave.'); return;
   }
   if (!lgpd) {
     showToast('Aceite a Política de Privacidade para continuar.'); return;
   }
 
   const btn = document.getElementById('btn_enviar');
-  btn.textContent = 'Enviando...';
+  btn.textContent = 'Processando...';
   btn.disabled = true;
 
+  // Lógica de preço
+  const indicacao = como === 'Indicação de participante';
+  const valor     = indicacao ? 'R$ 199' : 'R$ 297';
+  const linkPgto  = indicacao ? LINK_199 : LINK_297;
+
   const payload = {
-    tipo: 'INTENCAO_VAGA',
+    tipo: 'INSCRICAO',
     timestamp: new Date().toLocaleString('pt-BR'),
     nome, whatsapp, email, cidade,
     instagram: instagram || '—',
-    comoConheceu: como || '—',
-    status: 'Intenção de vaga'
+    comoConheceu: como,
+    valor,
+    status: 'Aguardando pagamento'
   };
 
+  // Envia para Google Sheets
   try {
     await fetch(APPS_SCRIPT_URL, {
       method: 'POST',
@@ -1391,8 +1409,41 @@ async function enviarIntencao() {
     });
   } catch(e) {}
 
+  // Mostra tela de pagamento
   document.getElementById('form-wrap').style.display = 'none';
-  document.getElementById('form-success').classList.add('show');
+  const successEl = document.getElementById('form-success');
+  
+  const primeiroNome = nome.split(' ')[0];
+  const wppMsg = encodeURIComponent(
+    `Olá Vânia! Sou ${nome} e acabei de realizar o pagamento da imersão Destrave Seu Potencial. Segue meu comprovante!`
+  );
+
+  successEl.innerHTML = `
+    <div class="success-line"></div>
+    <div class="success-title" style="margin-bottom:8px">${primeiroNome}, seu cadastro foi registrado.</div>
+    <p class="success-text">Agora finalize sua inscrição realizando o pagamento abaixo.</p>
+
+    <div style="background:var(--beige);padding:24px 28px;margin-bottom:24px;text-align:left">
+      <div style="font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Seu investimento</div>
+      <div style="font-family:'Cormorant Garamond',serif;font-size:2.8rem;font-weight:300;color:var(--ink);line-height:1;margin-bottom:4px">${valor}</div>
+      <div style="font-size:0.78rem;color:var(--muted)">${indicacao ? 'Valor especial · Indicação de participante' : 'PIX à vista · ou 3x de R$ 99 no cartão'}</div>
+    </div>
+
+    <a href="${linkPgto}" target="_blank" class="btn-submit" style="display:block;text-decoration:none;text-align:center;margin-bottom:16px;padding:16px">
+      Realizar Pagamento Agora
+    </a>
+
+    <div style="background:var(--warm);border:1px solid var(--beige);padding:20px 24px;text-align:left;margin-bottom:20px">
+      <div style="font-size:0.65rem;letter-spacing:0.2em;text-transform:uppercase;color:var(--muted);margin-bottom:8px">Importante</div>
+      <p style="font-size:0.82rem;color:var(--muted);line-height:1.7;margin:0">Após o pagamento, envie o comprovante para o WhatsApp da Vânia para validar o seu acesso e receber todas as informações do evento.</p>
+    </div>
+
+    <a href="https://wa.me/${WPP_NUM}?text=${wppMsg}" target="_blank" class="btn-wpp" style="display:block;text-align:center">
+      Enviar Comprovante pelo WhatsApp
+    </a>
+  `;
+
+  successEl.classList.add('show');
 }
 
 function showToast(msg) {
