@@ -1432,7 +1432,7 @@ async function enviarIntencao() {
   document.getElementById('form-wrap').style.display = 'none';
   const successEl = document.getElementById('form-success');
 
-  successEl.innerHTML = \`
+  successEl.innerHTML = `
     <div class="success-line"></div>
     <div class="success-title" style="margin-bottom:8px">\${primeiroNome}, cadastro registrado.</div>
     <p class="success-text">O próximo passo é falar com Vânia pelo WhatsApp para confirmar sua vaga e realizar o pagamento.</p>
@@ -1464,7 +1464,7 @@ async function enviarIntencao() {
     <p style="font-size:0.74rem;color:var(--muted);text-align:center;line-height:1.6">
       O WhatsApp já abre com seus dados preenchidos na mensagem.
     </p>
-  \`;
+  `;
 
   successEl.classList.add('show');
 
