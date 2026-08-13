@@ -1,0 +1,1504 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Destrave Seu Potencial 8 — Vânia Dias</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS ── */
+:root {
+  --ink:        #1C1410;
+  --bordeaux:   #6B2337;
+  --bordeaux-2: #8B3049;
+  --warm:       #F7F3EE;
+  --beige:      #EDE5D8;
+  --stone:      #C8B89A;
+  --muted:      #8A7B6B;
+  --white:      #FDFAF7;
+}
+
+/* ── RESET ── */
+*, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; font-size:16px; }
+
+body {
+  background: var(--white);
+  color: var(--ink);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  line-height: 1.7;
+  overflow-x: hidden;
+}
+
+/* ── TYPE SCALE ── */
+.display {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3.2rem, 7vw, 6.4rem);
+  font-weight: 300;
+  line-height: 1.0;
+  letter-spacing: -0.01em;
+}
+.display em { font-style: italic; color: var(--bordeaux); }
+
+.heading {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 300;
+  line-height: 1.1;
+}
+.heading em { font-style: italic; color: var(--bordeaux); }
+
+.label {
+  font-size: 0.68rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--bordeaux);
+  font-weight: 400;
+}
+
+.body-text {
+  font-size: 1rem;
+  color: var(--muted);
+  line-height: 1.85;
+  max-width: 560px;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 22px 6%;
+  display: flex; justify-content: space-between; align-items: center;
+  background: rgba(253,250,247,0.94);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(200,184,154,0.18);
+}
+
+.nav-mark {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--ink);
+}
+.nav-mark span { color: var(--bordeaux); }
+
+.btn {
+  display: inline-block;
+  padding: 11px 28px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s ease;
+}
+.btn-dark {
+  background: var(--ink);
+  color: var(--white);
+}
+.btn-dark:hover { background: var(--bordeaux); }
+
+.btn-bordeaux {
+  background: var(--bordeaux);
+  color: var(--white);
+}
+.btn-bordeaux:hover { background: #581D2C; }
+
+.btn-outline {
+  background: transparent;
+  color: var(--ink);
+  border: 1px solid var(--ink);
+}
+.btn-outline:hover { background: var(--ink); color: var(--white); }
+
+.btn-lg {
+  padding: 17px 52px;
+  font-size: 0.76rem;
+  letter-spacing: 0.28em;
+}
+
+/* ── HERO ── */
+.hero {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-top: 80px;
+}
+
+.hero-left {
+  background: var(--ink);
+  padding: 8% 7% 8% 7%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-left::after {
+  content: 'DSP';
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22rem;
+  font-weight: 300;
+  color: rgba(255,255,255,0.025);
+  position: absolute;
+  bottom: -60px; right: -40px;
+  line-height: 1;
+  pointer-events: none;
+  user-select: none;
+}
+
+.hero-eyebrow {
+  font-size: 0.65rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: var(--stone);
+  margin-bottom: 36px;
+}
+
+.hero-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3rem, 5.5vw, 5.6rem);
+  font-weight: 300;
+  line-height: 1.0;
+  color: var(--white);
+  margin-bottom: 10px;
+}
+
+.hero-title-accent {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(3rem, 5.5vw, 5.6rem);
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.0;
+  color: var(--stone);
+  margin-bottom: 44px;
+}
+
+.hero-sub {
+  font-size: 0.95rem;
+  color: rgba(253,250,247,0.55);
+  line-height: 1.8;
+  max-width: 400px;
+  margin-bottom: 52px;
+}
+
+.hero-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 40px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(200,184,154,0.2);
+}
+
+.hero-meta-item {
+  font-size: 0.8rem;
+  color: rgba(253,250,247,0.45);
+  letter-spacing: 0.08em;
+}
+.hero-meta-item strong {
+  color: rgba(253,250,247,0.8);
+  font-weight: 400;
+}
+
+/* HERO RIGHT */
+.hero-right {
+  background: var(--beige);
+  padding: 8% 7%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.hero-statement {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.6rem, 2.8vw, 2.6rem);
+  font-weight: 300;
+  line-height: 1.25;
+  color: var(--ink);
+  margin-bottom: 48px;
+}
+
+.hero-statement em {
+  font-style: italic;
+  color: var(--bordeaux);
+}
+
+.hero-detail {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.85;
+  margin-bottom: 48px;
+  max-width: 420px;
+}
+
+.edition-tag {
+  display: inline-block;
+  padding: 7px 18px;
+  border: 1px solid var(--stone);
+  font-size: 0.65rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 32px;
+}
+
+/* ── SECTION BASE ── */
+.section {
+  padding: 100px 6%;
+}
+
+.section-inner {
+  max-width: 1160px;
+  margin: 0 auto;
+}
+
+.section-header {
+  margin-bottom: 64px;
+}
+
+/* ── DIVIDER ── */
+.rule {
+  width: 40px; height: 1px;
+  background: var(--bordeaux);
+  margin-bottom: 20px;
+}
+
+/* ── TELA 2: O QUE É ── */
+.what-section {
+  background: var(--white);
+}
+
+.what-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.what-text p {
+  font-size: 1rem;
+  color: var(--muted);
+  line-height: 1.9;
+  margin-bottom: 20px;
+}
+
+.pillars {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 2px;
+  background: var(--beige);
+}
+
+.pillar {
+  background: var(--white);
+  padding: 28px 20px;
+  transition: background 0.3s;
+}
+
+.pillar:hover { background: var(--beige); }
+
+.pillar-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  color: var(--ink);
+  margin-bottom: 4px;
+}
+
+.pillar-line {
+  width: 20px; height: 1px;
+  background: var(--bordeaux);
+}
+
+/* ── TELA 3: TRANSFORMAÇÃO ── */
+.transform-section {
+  background: var(--beige);
+}
+
+.transform-cols {
+  display: grid;
+  grid-template-columns: 1fr 80px 1fr;
+  gap: 0;
+  align-items: start;
+  margin-top: 56px;
+}
+
+.transform-col-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  margin-bottom: 32px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--stone);
+}
+
+.before-label { color: var(--muted); }
+.after-label  { color: var(--bordeaux); text-align: right; }
+
+.transform-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(200,184,154,0.3);
+}
+
+.after-col .transform-item { flex-direction: row-reverse; }
+.after-col .transform-item p { text-align: right; }
+
+.dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  margin-top: 9px;
+}
+.dot-muted   { background: var(--stone); }
+.dot-bordeaux { background: var(--bordeaux); }
+
+.transform-item p {
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: var(--ink);
+}
+
+.before-col .transform-item p { color: var(--muted); }
+
+.transform-center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 56px;
+}
+
+.center-line {
+  width: 1px;
+  height: 48px;
+  background: linear-gradient(to bottom, transparent, var(--bordeaux));
+  margin-bottom: -1px;
+}
+
+.center-mark {
+  width: 40px; height: 40px;
+  border: 1px solid var(--bordeaux);
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.1rem;
+  color: var(--bordeaux);
+  background: var(--beige);
+}
+
+.transform-note {
+  margin-top: 56px;
+  padding-top: 32px;
+  border-top: 1px solid var(--stone);
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  font-weight: 300;
+  font-style: italic;
+  color: var(--muted);
+  text-align: center;
+}
+
+/* ── TELA 4: MÉTODO ── */
+.method-section {
+  background: var(--ink);
+}
+
+.method-section .label { color: var(--stone); }
+.method-section .rule  { background: var(--stone); }
+
+.method-grid {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  gap: 0;
+  margin-top: 64px;
+}
+
+.method-divider {
+  background: rgba(200,184,154,0.15);
+  align-self: stretch;
+}
+
+.method-col {
+  padding: 0 48px;
+}
+
+.method-col:first-child { padding-left: 0; }
+
+.method-col-title {
+  font-size: 0.65rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--stone);
+  margin-bottom: 36px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(200,184,154,0.15);
+}
+
+.method-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  padding: 18px 0;
+  border-bottom: 1px solid rgba(200,184,154,0.08);
+}
+
+.method-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.8rem;
+  font-weight: 300;
+  color: rgba(200,184,154,0.25);
+  line-height: 1;
+  flex-shrink: 0;
+  width: 32px;
+}
+
+.method-name {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.25rem;
+  font-weight: 400;
+  color: var(--white);
+  line-height: 1.2;
+  padding-top: 4px;
+}
+
+.method-note {
+  margin-top: 56px;
+  padding: 0 0 0 0;
+  font-size: 0.88rem;
+  color: rgba(200,184,154,0.55);
+  line-height: 1.8;
+  max-width: 640px;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+/* ── TELA 5: DEPOIMENTOS ── */
+.testimonials-section {
+  background: var(--warm);
+}
+
+.testimonials-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2px;
+  background: var(--beige);
+  margin-top: 56px;
+}
+
+.testimonial {
+  background: var(--white);
+  padding: 44px 36px;
+  transition: background 0.3s;
+}
+
+.testimonial:hover { background: var(--warm); }
+
+.testimonial-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.15rem;
+  font-weight: 300;
+  font-style: italic;
+  line-height: 1.7;
+  color: var(--ink);
+  margin-bottom: 32px;
+}
+
+.testimonial-rule {
+  width: 24px; height: 1px;
+  background: var(--stone);
+  margin-bottom: 16px;
+}
+
+.testimonial-name {
+  font-size: 0.78rem;
+  font-weight: 400;
+  color: var(--ink);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.testimonial-city {
+  font-size: 0.74rem;
+  color: var(--muted);
+  margin-top: 3px;
+}
+
+/* ── PARA QUEM É ── */
+.for-who {
+  margin-top: 80px;
+  padding-top: 64px;
+  border-top: 1px solid var(--beige);
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+
+.for-who-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  font-weight: 300;
+  line-height: 1.2;
+  color: var(--ink);
+}
+
+.for-who-title em { font-style: italic; color: var(--bordeaux); }
+
+.for-who-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.for-who-list li {
+  font-size: 0.92rem;
+  color: var(--muted);
+  padding: 14px 0;
+  border-bottom: 1px solid var(--beige);
+  line-height: 1.5;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.for-who-list li::before {
+  content: '';
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--bordeaux);
+  flex-shrink: 0;
+}
+
+/* ── FECHAMENTO ── */
+.closing-section {
+  background: var(--bordeaux);
+  padding: 100px 6%;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.closing-section::before {
+  content: 'DSP';
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28vw;
+  font-weight: 300;
+  color: rgba(253,250,247,0.04);
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.closing-inner {
+  position: relative;
+  z-index: 1;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.closing-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.32em;
+  text-transform: uppercase;
+  color: rgba(253,250,247,0.5);
+  margin-bottom: 28px;
+}
+
+.closing-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2.4rem, 4vw, 3.8rem);
+  font-weight: 300;
+  line-height: 1.1;
+  color: var(--white);
+  margin-bottom: 24px;
+}
+
+.closing-text {
+  font-size: 0.92rem;
+  color: rgba(253,250,247,0.6);
+  line-height: 1.85;
+  margin-bottom: 48px;
+}
+
+.btn-white {
+  background: var(--white);
+  color: var(--bordeaux);
+  display: inline-block;
+  padding: 17px 52px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  border: none;
+  transition: all 0.3s ease;
+}
+.btn-white:hover {
+  background: var(--beige);
+  transform: translateY(-2px);
+}
+
+.closing-note {
+  margin-top: 20px;
+  font-size: 0.73rem;
+  color: rgba(253,250,247,0.35);
+  letter-spacing: 0.1em;
+}
+
+/* ── FORMULÁRIO / INTENÇÃO ── */
+.intent-section {
+  background: var(--white);
+  padding: 100px 6%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+  max-width: 100%;
+}
+
+.intent-left .label { margin-bottom: 20px; display: block; }
+.intent-left .rule  { margin-bottom: 20px; }
+
+.intent-left h2 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  font-weight: 300;
+  line-height: 1.15;
+  color: var(--ink);
+  margin-bottom: 20px;
+}
+.intent-left h2 em { font-style: italic; color: var(--bordeaux); }
+
+.intent-left p {
+  font-size: 0.9rem;
+  color: var(--muted);
+  line-height: 1.85;
+  margin-bottom: 32px;
+}
+
+.invest-box {
+  border: 1px solid var(--beige);
+  padding: 24px 28px;
+}
+
+.invest-label {
+  font-size: 0.62rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--muted);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.invest-price {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2.6rem;
+  font-weight: 300;
+  color: var(--ink);
+  line-height: 1;
+  display: block;
+  margin-bottom: 4px;
+}
+
+.invest-parcela {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+.invest-parcela strong { color: var(--ink); font-weight: 400; }
+
+/* Form */
+.intent-form {
+  background: var(--warm);
+  padding: 44px;
+}
+
+.form-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.6rem;
+  font-weight: 300;
+  color: var(--ink);
+  margin-bottom: 6px;
+}
+.form-title em { font-style: italic; color: var(--bordeaux); }
+
+.form-sub {
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-bottom: 28px;
+  line-height: 1.6;
+}
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.form-group { margin-bottom: 12px; }
+
+.form-group label {
+  display: block;
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid var(--beige);
+  background: var(--white);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.88rem;
+  color: var(--ink);
+  outline: none;
+  transition: border-color 0.3s;
+  -webkit-appearance: none;
+  border-radius: 0;
+}
+.form-group input:focus,
+.form-group select:focus { border-color: var(--bordeaux); }
+
+.form-group select {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6' viewBox='0 0 10 6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%238A7B6B' stroke-width='1.5' fill='none'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 14px center;
+  padding-right: 36px;
+  cursor: pointer;
+}
+
+.lgpd-row {
+  display: flex; align-items: flex-start; gap: 10px;
+  margin: 12px 0;
+}
+.lgpd-row input[type="checkbox"] {
+  width: 15px; height: 15px; min-width: 15px;
+  margin-top: 3px;
+  accent-color: var(--bordeaux);
+  cursor: pointer;
+  border-radius: 0;
+}
+.lgpd-row label {
+  font-size: 0.73rem;
+  color: var(--muted);
+  line-height: 1.5;
+  cursor: pointer;
+}
+.lgpd-row label a { color: var(--bordeaux); text-decoration: none; }
+
+.btn-submit {
+  width: 100%;
+  background: var(--ink);
+  color: var(--white);
+  border: none;
+  padding: 15px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.3s;
+  margin-top: 6px;
+  border-radius: 0;
+}
+.btn-submit:hover { background: var(--bordeaux); }
+.btn-submit:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* Success */
+.form-success {
+  display: none;
+  text-align: center;
+  padding: 48px 20px;
+}
+.form-success.show { display: block; }
+
+.success-line {
+  width: 40px; height: 1px;
+  background: var(--bordeaux);
+  margin: 0 auto 24px;
+}
+
+.success-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 2rem;
+  font-weight: 300;
+  color: var(--ink);
+  margin-bottom: 14px;
+}
+
+.success-text {
+  font-size: 0.88rem;
+  color: var(--muted);
+  line-height: 1.8;
+  margin-bottom: 28px;
+}
+
+.btn-wpp {
+  display: inline-block;
+  background: #25D366;
+  color: #fff;
+  padding: 13px 32px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: background 0.3s;
+  border-radius: 0;
+}
+.btn-wpp:hover { background: #1DA851; }
+
+/* Toast */
+.toast {
+  position: fixed; bottom: 28px; left: 50%;
+  transform: translateX(-50%);
+  background: var(--ink);
+  color: var(--white);
+  padding: 12px 28px;
+  font-size: 0.78rem;
+  z-index: 999;
+  letter-spacing: 0.06em;
+  animation: fadeUp 0.3s ease;
+  white-space: nowrap;
+}
+@keyframes fadeUp {
+  from { opacity:0; transform: translateX(-50%) translateY(8px); }
+  to   { opacity:1; transform: translateX(-50%) translateY(0); }
+}
+
+
+/* ── VIDEO ── */
+.video-wrap {
+  width: 100%;
+  aspect-ratio: 16/9;
+  background: var(--ink);
+  margin-bottom: 28px;
+  overflow: hidden;
+  position: relative;
+}
+
+.video-wrap iframe {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.video-placeholder {
+  width: 100%; height: 100%;
+  background: linear-gradient(160deg, #2a1e16 0%, var(--bordeaux) 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  gap: 12px;
+  transition: opacity 0.3s;
+}
+
+.video-placeholder:hover { opacity: 0.85; }
+
+.play-icon { display: flex; align-items: center; justify-content: center; }
+
+.play-label {
+  font-size: 0.68rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(253,250,247,0.6);
+}
+
+/* ── FOOTER ── */
+footer {
+  background: var(--ink);
+  padding: 32px 6%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer-mark {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.88rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--stone);
+}
+
+.footer-info {
+  font-size: 0.7rem;
+  color: rgba(200,184,154,0.35);
+  line-height: 1.6;
+  text-align: right;
+}
+
+/* ── WHATSAPP FLOAT ── */
+.wpp-float {
+  position: fixed;
+  bottom: 28px; right: 28px;
+  width: 52px; height: 52px;
+  background: #25D366;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  text-decoration: none;
+  z-index: 90;
+  box-shadow: 0 4px 20px rgba(37,211,102,0.35);
+  transition: transform 0.3s, box-shadow 0.3s;
+}
+.wpp-float:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 28px rgba(37,211,102,0.45);
+}
+.wpp-float svg {
+  width: 26px; height: 26px;
+  fill: #fff;
+}
+
+/* ── FADE IN ── */
+.fade {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.fade.in { opacity:1; transform: translateY(0); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .hero { grid-template-columns: 1fr; }
+  .hero-left { padding: 100px 6% 60px; }
+  .hero-right { padding: 60px 6%; }
+  .what-grid { grid-template-columns: 1fr; gap: 48px; }
+  .transform-cols { grid-template-columns: 1fr; gap: 0; }
+  .transform-center { display: none; }
+  .after-col .transform-item { flex-direction: row; }
+  .after-col .transform-item p { text-align: left; }
+  .after-label { text-align: left; }
+  .method-grid { grid-template-columns: 1fr; }
+  .method-divider { display: none; }
+  .method-col { padding: 0; }
+  .testimonials-grid { grid-template-columns: 1fr; }
+  .for-who { grid-template-columns: 1fr; gap: 40px; }
+  .intent-section { grid-template-columns: 1fr; }
+  .intent-form { padding: 32px 24px; }
+  .form-row { grid-template-columns: 1fr; }
+  footer { flex-direction: column; text-align: center; }
+  .footer-info { text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-mark">Destrave<span> · </span>Seu Potencial</div>
+  <a href="#intencao" class="btn btn-dark">Garantir Minha Vaga</a>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     TELA 1 — HERO
+══════════════════════════════════════════ -->
+<section class="hero" id="inicio">
+  <div class="hero-left">
+    <div class="hero-eyebrow">8ª Edição · Imersão Presencial</div>
+    <div class="hero-title">Destrave</div>
+    <div class="hero-title-accent">Seu Potencial</div>
+    <p class="hero-sub">Uma imersão presencial criada para ajudar você a identificar bloqueios emocionais, fortalecer sua identidade e construir uma vida mais alinhada com quem nasceu para ser.</p>
+    <a href="#intencao" class="btn btn-bordeaux btn-lg" style="align-self:flex-start">Garantir Minha Vaga</a>
+    <div class="hero-meta">
+      <div class="hero-meta-item"><strong>22 de Agosto de 2026</strong></div>
+      <div class="hero-meta-item"><strong>09h às 18h</strong> · Eusébio, Ceará</div>
+      <div class="hero-meta-item">Vagas limitadas · Grupo selecionado</div>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="edition-tag">8ª Edição — Destrave Seu Potencial</div>
+    <div class="hero-statement">
+      Você não precisa se tornar<br>outra pessoa.<br>
+      Precisa apenas destravar<br><em>quem nasceu para ser.</em>
+    </div>
+    <p class="hero-detail">Um dia inteiro de experiência prática, conduzido por Vânia Dias, para você sair com mais clareza, identidade e direção para agir.</p>
+    <a href="#intencao" class="btn btn-outline">Quero Saber Mais</a>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     TELA 2 — O QUE É
+══════════════════════════════════════════ -->
+<section class="section what-section" id="oque">
+  <div class="section-inner">
+    <div class="what-grid">
+      <div class="what-left fade">
+        <div class="section-header">
+          <span class="label">A Imersão</span>
+          <div class="rule" style="margin-top:16px"></div>
+          <h2 class="heading">O que é o<br><em>Destrave Seu Potencial?</em></h2>
+        </div>
+        <div class="what-text">
+          <p>O Destrave Seu Potencial é uma imersão de desenvolvimento humano que combina identidade, inteligência emocional, neurociência e transformação comportamental para ajudar pessoas a romper bloqueios internos e viver com mais clareza, direção e propósito.</p>
+          <p>Ao longo de um dia intenso de experiência prática, você terá acesso a ferramentas que permitem compreender sua história, fortalecer sua identidade e assumir novas decisões para sua vida.</p>
+        </div>
+      </div>
+
+      <div class="fade" style="transition-delay:0.15s">
+        <div class="pillars">
+          <div class="pillar">
+            <div class="pillar-name">Clareza</div>
+            <div class="pillar-line"></div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-name">Identidade</div>
+            <div class="pillar-line"></div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-name">Autoconfiança</div>
+            <div class="pillar-line"></div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-name">Posicionamento</div>
+            <div class="pillar-line"></div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-name">Direção</div>
+            <div class="pillar-line"></div>
+          </div>
+          <div class="pillar">
+            <div class="pillar-name">Propósito</div>
+            <div class="pillar-line"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     TELA 3 — TRANSFORMAÇÃO
+══════════════════════════════════════════ -->
+<section class="section transform-section" id="transformacao">
+  <div class="section-inner">
+    <div class="fade">
+      <span class="label">A Experiência</span>
+      <div class="rule" style="margin-top:16px"></div>
+      <h2 class="heading">A transformação<br><em>da experiência</em></h2>
+    </div>
+
+    <div class="transform-cols">
+      <div class="before-col fade">
+        <div class="transform-col-label before-label">Como você chega</div>
+        <div class="transform-item"><div class="dot dot-muted"></div><p>Sem clareza sobre quem é</p></div>
+        <div class="transform-item"><div class="dot dot-muted"></div><p>Preso em padrões repetitivos</p></div>
+        <div class="transform-item"><div class="dot dot-muted"></div><p>Com dificuldade para tomar decisões</p></div>
+        <div class="transform-item"><div class="dot dot-muted"></div><p>Sem direção para o próximo passo</p></div>
+        <div class="transform-item"><div class="dot dot-muted"></div><p>Vivendo abaixo do próprio potencial</p></div>
+      </div>
+
+      <div class="transform-center">
+        <div class="center-line"></div>
+        <div class="center-mark">&#10022;</div>
+      </div>
+
+      <div class="after-col fade" style="transition-delay:0.15s">
+        <div class="transform-col-label after-label">Como você sai</div>
+        <div class="transform-item"><div class="dot dot-bordeaux"></div><p>Com mais clareza sobre quem é</p></div>
+        <div class="transform-item"><div class="dot dot-bordeaux"></div><p>Compreendendo seus bloqueios</p></div>
+        <div class="transform-item"><div class="dot dot-bordeaux"></div><p>Mais seguro para tomar decisões</p></div>
+        <div class="transform-item"><div class="dot dot-bordeaux"></div><p>Com direção para agir</p></div>
+        <div class="transform-item"><div class="dot dot-bordeaux"></div><p>Preparado para viver uma nova fase</p></div>
+      </div>
+    </div>
+
+    <div class="transform-note fade">
+      O resultado da transformação acontece através dos pilares e da jornada da imersão.
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     TELA 4 — MÉTODO
+══════════════════════════════════════════ -->
+<section class="section method-section" id="metodo">
+  <div class="section-inner">
+    <div class="fade">
+      <span class="label" style="color:var(--stone)">O Método</span>
+      <div class="rule" style="margin-top:16px;background:var(--stone)"></div>
+      <h2 class="heading" style="color:var(--white)">A estrutura do<br><em style="color:var(--stone)">método DSP</em></h2>
+    </div>
+
+    <div class="method-grid fade" style="transition-delay:0.1s">
+      <div class="method-col">
+        <div class="method-col-title">Pilares</div>
+        <div class="method-item">
+          <div class="method-num">1</div>
+          <div class="method-name">Consciência</div>
+        </div>
+        <div class="method-item">
+          <div class="method-num">2</div>
+          <div class="method-name">Origem</div>
+        </div>
+        <div class="method-item">
+          <div class="method-num">3</div>
+          <div class="method-name">Cura</div>
+        </div>
+        <div class="method-item">
+          <div class="method-num">4</div>
+          <div class="method-name">Identidade</div>
+        </div>
+        <div class="method-item">
+          <div class="method-num">5</div>
+          <div class="method-name">Direção</div>
+        </div>
+      </div>
+
+      <div class="method-divider"></div>
+
+      <div class="method-col">
+        <div class="method-col-title">Jornada</div>
+        <div class="method-item">
+          <div class="method-num">1</div>
+          <div class="method-name">Despertar</div>
+        </div>
+        <div class="method-item">
+          <div class="method-num">2</div>
+          <div class="method-name">Descobrir</div>
+        </div>
+        <div class="method-item">
+          <div class="method-num">3</div>
+          <div class="method-name">Ressignificar</div>
+        </div>
+        <div class="method-item">
+          <div class="method-num">4</div>
+          <div class="method-name">Reconstruir</div>
+        </div>
+        <div class="method-item">
+          <div class="method-num">5</div>
+          <div class="method-name">Destravar</div>
+        </div>
+      </div>
+    </div>
+
+    <p class="method-note fade" style="transition-delay:0.2s">
+      Cada etapa foi construída para conduzir o participante da consciência dos seus bloqueios até a construção de uma nova direção para sua vida.
+    </p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     TELA 5 — DEPOIMENTOS + PARA QUEM É
+══════════════════════════════════════════ -->
+<section class="section testimonials-section" id="depoimentos">
+  <div class="section-inner">
+    <div class="fade">
+      <span class="label">Histórias Reais</span>
+      <div class="rule" style="margin-top:16px"></div>
+      <h2 class="heading">Transformações<br><em>que aconteceram</em></h2>
+    </div>
+
+    <div class="testimonials-grid" style="grid-template-columns:1fr 1fr">
+      <div class="testimonial fade">
+        <div class="video-wrap">
+<iframe src="https://drive.google.com/file/d/1_o4_a9G8QbwgUPmad_Az-VHo_hGMxyOu/preview" width="100%" height="100%" frameborder="0" allow="autoplay" allowfullscreen style="display:block"></iframe>
+        </div>
+        <p class="testimonial-quote">"Quando decidi fazer o Destrave, não imaginei que tiraria tantos planos do papel tão rápido. Em menos de um mês casei, realizei uma recepção que parecia inviável, tive lua de mel e ainda conquistei minha loja física. Destravei de verdade."</p>
+        <div class="testimonial-rule"></div>
+        <div class="testimonial-name">Bárbara Glarissy</div>
+      </div>
+      <div class="testimonial fade" style="transition-delay:0.15s">
+        <div class="video-wrap">
+<iframe src="https://drive.google.com/file/d/1wymR6PsZBZlnNAUut5mia9HL-Ftk6C3J/preview" width="100%" height="100%" frameborder="0" allow="autoplay" allowfullscreen style="display:block"></iframe>
+        </div>
+        <p class="testimonial-quote">"Em um mês e vinte dias depois do Destrave, troquei de casa, de escritório e comprei meu carro. Mas o que mais mudou foi o que ninguém vê — as escolhas que passei a fazer. Eu realmente destravei."</p>
+        <div class="testimonial-rule"></div>
+        <div class="testimonial-name">Luana Sanguinetti</div>
+      </div>
+    </div>
+
+    <!-- PARA QUEM É -->
+    <div class="for-who">
+      <div class="fade">
+        <h3 class="for-who-title">Para quem é o<br><em>Destrave Seu Potencial?</em></h3>
+      </div>
+      <ul class="for-who-list fade" style="transition-delay:0.1s">
+        <li>Para quem busca mais clareza</li>
+        <li>Para quem deseja fortalecer sua identidade</li>
+        <li>Para quem sente que pode viver mais do que está vivendo hoje</li>
+        <li>Para quem quer evoluir emocionalmente</li>
+        <li>Para quem deseja tomar decisões com mais segurança</li>
+        <li>Para quem está pronto para assumir uma nova versão de si mesmo</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     FECHAMENTO
+══════════════════════════════════════════ -->
+<section class="closing-section" id="fechamento">
+  <div class="closing-inner fade">
+    <div class="closing-label">O Próximo Passo</div>
+    <h2 class="closing-title">O próximo passo é seu.</h2>
+    <p class="closing-text">A mudança começa quando você decide olhar para dentro, compreender sua história e assumir a responsabilidade pela vida que deseja construir.</p>
+    <a href="#intencao" class="btn-white">Quero Viver Essa Experiência</a>
+    <div class="closing-note">22 de Agosto de 2026 · Eusébio, Ceará · Vagas limitadas</div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     FORMULÁRIO DE INTENÇÃO
+══════════════════════════════════════════ -->
+<div class="intent-section" id="intencao">
+  <div class="intent-left fade">
+    <span class="label">Intenção de Vaga</span>
+    <div class="rule"></div>
+    <h2>Demonstre sua<br><em>intenção de vaga</em></h2>
+    <p>Preencha ao lado. Vânia analisa o seu perfil e entra em contato pelo WhatsApp para confirmar a sua vaga e alinhar os próximos passos.</p>
+    <div class="invest-box">
+      <span class="invest-label">Investimento</span>
+      <span class="invest-price">R$ 297</span>
+      <div class="invest-parcela">PIX · Nubank · Zero taxas</div>
+      <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--beige);font-size:0.78rem;color:var(--muted);line-height:1.6">Veio por indicação de uma participante?<br><strong style="color:var(--bordeaux)">R$ 199</strong> — valor especial aplicado automaticamente</div>
+    </div>
+  </div>
+
+  <div class="intent-form fade" style="transition-delay:0.1s">
+    <div id="form-wrap">
+      <div class="form-title">Quero <em>minha vaga</em></div>
+      <p class="form-sub">Após o preenchimento, você receberá o contato de Vânia pelo WhatsApp.</p>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Nome completo *</label>
+          <input type="text" id="int_nome" placeholder="Seu nome">
+        </div>
+        <div class="form-group">
+          <label>WhatsApp *</label>
+          <input type="tel" id="int_whatsapp" placeholder="(85) 99999-0000">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>E-mail *</label>
+        <input type="email" id="int_email" placeholder="seu@email.com">
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Cidade / Estado *</label>
+          <input type="text" id="int_cidade" placeholder="Fortaleza, CE">
+        </div>
+        <div class="form-group">
+          <label>Instagram</label>
+          <input type="text" id="int_instagram" placeholder="@seuperfil">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Como conheceu o Destrave? *</label>
+        <select id="int_como" onchange="toggleIndicacao(this.value)">
+          <option value="" disabled selected>Selecione</option>
+          <option value="Indicação">Indicação</option>
+          <option value="Instagram">Instagram</option>
+        </select>
+      </div>
+      <div class="form-group" id="campo_indicacao" style="display:none">
+        <label>Quem te indicou? *</label>
+        <input type="text" id="int_indicacao" placeholder="Nome de quem indicou">
+      </div>
+
+      <div class="lgpd-row">
+        <input type="checkbox" id="int_lgpd">
+        <label for="int_lgpd">Concordo com a <a href="#">Política de Privacidade</a> e autorizo o uso dos meus dados conforme a <a href="#">LGPD</a>.</label>
+      </div>
+
+      <button class="btn-submit" id="btn_enviar" onclick="enviarIntencao()">Demonstrar Intenção de Vaga</button>
+    </div>
+
+    <div class="form-success" id="form-success">
+      <div class="success-line"></div>
+      <div class="success-title">Interesse registrado</div>
+      <p class="success-text">Vânia recebeu sua solicitação e entrará em contato pelo WhatsApp em breve para confirmar sua vaga.</p>
+      <a href="https://wa.me/5585984852476?text=Ol%C3%A1%20V%C3%A2nia%21%20Acabei%20de%20preencher%20o%20formul%C3%A1rio%20do%20Destrave%20Seu%20Potencial%20e%20quero%20saber%20mais." class="btn-wpp" target="_blank">Falar com Vânia agora</a>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-mark">Destrave · Seu Potencial</div>
+  <div class="footer-info">
+    © 2026 Vânia Dias · CNPJ 21.624.751/0001-00<br>
+    Todos os direitos reservados
+  </div>
+</footer>
+
+<!-- WhatsApp Float -->
+<a href="https://wa.me/5585984852476?text=Ol%C3%A1%21%20Vim%20pelo%20site%20do%20Destrave%20Seu%20Potencial%20e%20gostaria%20de%20saber%20mais." class="wpp-float" target="_blank" aria-label="Falar pelo WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<script>
+const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyIMpsw5LZR7x0CBDidy5BenwvEAbqxwANSBGdHA3e2YRQNepfEPTUIg3O6VnXMoPTb/exec';
+const CHAVE_PIX = '8baafcea-9d75-4c11-9669-0aa27fb6e624';
+const VALOR_199 = 'R$ 199';
+const VALOR_297 = 'R$ 297';
+const WPP_NUM  = '5585984852476';
+
+async function enviarIntencao() {
+  const nome      = document.getElementById('int_nome').value.trim();
+  const whatsapp  = document.getElementById('int_whatsapp').value.trim();
+  const email     = document.getElementById('int_email').value.trim();
+  const cidade    = document.getElementById('int_cidade').value.trim();
+  const instagram = document.getElementById('int_instagram').value.trim();
+  const como      = document.getElementById('int_como').value;
+  const lgpd      = document.getElementById('int_lgpd').checked;
+
+  const indicacao_nome = document.getElementById('int_indicacao').value.trim();
+
+  if (!nome || !whatsapp || !email || !cidade) {
+    showToast('Preencha os campos obrigatórios.'); return;
+  }
+  if (!como) {
+    showToast('Informe como conheceu o Destrave.'); return;
+  }
+  if (como === 'Indicação' && !indicacao_nome) {
+    showToast('Informe quem te indicou.'); return;
+  }
+  if (!lgpd) {
+    showToast('Aceite a Política de Privacidade para continuar.'); return;
+  }
+
+  const btn = document.getElementById('btn_enviar');
+  btn.textContent = 'Processando...';
+  btn.disabled = true;
+
+  // Lógica de preço
+  const indicacao = como === 'Indicação';
+  const valor     = indicacao ? VALOR_199 : VALOR_297;
+
+  const payload = {
+    tipo: 'INSCRICAO',
+    timestamp: new Date().toLocaleString('pt-BR'),
+    nome, whatsapp, email, cidade,
+    instagram: instagram || '—',
+    comoConheceu: como === 'Indicação' ? 'Indicação — ' + indicacao_nome : como,
+    valor,
+    status: 'Aguardando pagamento'
+  };
+
+  // Envia para Google Sheets
+  try {
+    await fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+  } catch(e) {}
+
+  // Monta mensagem e mostra tela de sucesso
+  var primeiroNome = nome.split(' ')[0];
+  var chavePix = '8baafcea-9d75-4c11-9669-0aa27fb6e624';
+  var descValor = indicacao ? 'Valor especial - Indicacao de participante' : 'PIX a vista';
+
+  var msgWpp = encodeURIComponent(
+    'Ola Vania! Acabei de preencher o formulario do Destrave Seu Potencial e realizei o PIX. Segue o comprovante!' +
+    '\n\nMeus dados:' +
+    '\nNome: ' + nome +
+    '\nWhatsApp: ' + whatsapp +
+    '\nEmail: ' + email +
+    '\nCidade: ' + cidade +
+    '\nComo conheceu: ' + (como === 'Indicacao' ? 'Indicacao de ' + indicacao_nome : como) +
+    '\nValor pago: ' + valor
+  );
+
+  var linkWpp = 'https://wa.me/' + WPP_NUM + '?text=' + msgWpp;
+
+  document.getElementById('form-wrap').style.display = 'none';
+  var successEl = document.getElementById('form-success');
+
+  var html_success = '';
+  html_success += '<div class="success-line"></div>';
+  html_success += '<div class="success-title" style="margin-bottom:8px">' + primeiroNome + ', cadastro registrado.</div>';
+  html_success += '<p class="success-text">Realize o PIX abaixo e envie o comprovante para o WhatsApp da Vania para confirmar sua vaga.</p>';
+
+  html_success += '<div style="background:var(--beige);padding:20px 24px;margin-bottom:16px;text-align:left">';
+  html_success += '<div style="font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Seu investimento</div>';
+  html_success += '<div style="font-family:Georgia,serif;font-size:2.4rem;font-weight:300;color:var(--ink);line-height:1;margin-bottom:4px">' + valor + '</div>';
+  html_success += '<div style="font-size:0.78rem;color:var(--muted)">' + descValor + '</div>';
+  html_success += '</div>';
+
+  html_success += '<div style="background:var(--beige);padding:20px 24px;margin-bottom:16px;text-align:left">';
+  html_success += '<div style="font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Chave PIX — Nubank</div>';
+  html_success += '<div style="font-size:0.82rem;color:var(--ink);font-weight:400;letter-spacing:0.04em;margin-bottom:12px;word-break:break-all">' + chavePix + '</div>';
+  html_success += '<button id="btn-pix-copy" style="background:var(--ink);color:#fff;border:none;padding:12px 24px;font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;width:100%">Copiar Chave PIX</button>';
+  html_success += '</div>';
+
+  html_success += '<div style="background:var(--warm);border:1px solid var(--beige);padding:16px 20px;margin-bottom:20px;text-align:left">';
+  html_success += '<p style="font-size:0.8rem;color:var(--muted);line-height:1.7;margin:0">Apos realizar o PIX, clique no botao abaixo e envie o comprovante para confirmar sua vaga.</p>';
+  html_success += '</div>';
+
+  html_success += '<a href="' + linkWpp + '" target="_blank" style="display:block;text-decoration:none;text-align:center;padding:16px 20px;background:#25D366;color:#fff;font-size:0.76rem;letter-spacing:0.22em;text-transform:uppercase;margin-bottom:12px">Enviar Comprovante no WhatsApp</a>';
+  html_success += '<p style="font-size:0.74rem;color:var(--muted);text-align:center;line-height:1.6">O WhatsApp abre com seus dados ja preenchidos.</p>';
+
+  successEl.innerHTML = html_success;
+  successEl.classList.add('show');
+
+  // Botao copiar PIX
+  document.getElementById('btn-pix-copy').addEventListener('click', function() {
+    navigator.clipboard.writeText(chavePix).then(function() {
+      document.getElementById('btn-pix-copy').textContent = 'Copiado!';
+      setTimeout(function() {
+        document.getElementById('btn-pix-copy').textContent = 'Copiar Chave PIX';
+      }, 2000);
+    });
+  });
+}
+
+function toggleIndicacao(val) {
+  const campo = document.getElementById('campo_indicacao');
+  campo.style.display = val === 'Indicação' ? 'block' : 'none';
+  if (val !== 'Indicação') {
+    document.getElementById('int_indicacao').value = '';
+  }
+}
+
+function showToast(msg) {
+  document.querySelectorAll('.toast').forEach(t => t.remove());
+  const t = document.createElement('div');
+  t.className = 'toast';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 3500);
+}
+
+// Máscara telefone
+document.getElementById('int_whatsapp').addEventListener('input', function(e) {
+  let v = e.target.value.replace(/\D/g,'');
+  v = v.replace(/(\d{2})(\d)/,'($1) $2');
+  v = v.replace(/(\d{5})(\d{1,4})$/,'$1-$2');
+  e.target.value = v;
+});
+
+// Scroll fade
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
+}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+document.querySelectorAll('.fade').forEach(el => observer.observe(el));
+</script>
+</body>
+</html>
