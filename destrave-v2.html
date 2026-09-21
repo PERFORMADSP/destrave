@@ -1380,36 +1380,31 @@ async function enviarIntencao() {
   }
 
   var btn = document.getElementById('btn_enviar');
-  btn.textContent = 'Aguarde...';
   btn.disabled = true;
+  btn.textContent = 'Aguarde...';
 
   // Salva na planilha
   var payload = {
     tipo: 'INSCRICAO',
     timestamp: new Date().toLocaleString('pt-BR'),
-    nome: nome,
-    whatsapp: whatsapp,
-    cpf: cpf,
-    email: email,
-    cidade: cidade,
+    nome: nome, whatsapp: whatsapp, cpf: cpf,
+    email: email, cidade: cidade,
     instagram: instagram || '—',
     comoConheceu: como || '—',
     valor: 'R$ 199',
     status: 'Aguardando pagamento'
   };
-
   try {
     await fetch(APPS_SCRIPT_URL, {
-      method: 'POST',
-      mode: 'no-cors',
+      method: 'POST', mode: 'no-cors',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(payload)
     });
   } catch(e) {}
 
-  // Monta mensagem e vai direto pro WhatsApp
+  // Mensagem para WhatsApp com comprovante
   var msgWpp = encodeURIComponent(
-    'Ola Vania! Tenho interesse no Destrave Seu Potencial e quero garantir minha vaga.' +
+    'Ola Vania! Acabei de realizar o pagamento do Destrave Seu Potencial. Segue o comprovante!' +
     '\n\nMeus dados:' +
     '\nNome: ' + nome +
     '\nTelefone: ' + whatsapp +
@@ -1418,10 +1413,36 @@ async function enviarIntencao() {
     '\nCidade: ' + cidade +
     (instagram && instagram !== '—' ? '\nInstagram: ' + instagram : '') +
     (como ? '\nComo conheceu: ' + como : '') +
-    '\n\nValor: R$ 199'
+    '\n\nValor pago: R$ 199'
   );
+  var linkWpp = 'https://wa.me/' + WPP_NUM + '?text=' + msgWpp;
 
-  window.location.href = 'https://wa.me/' + WPP_NUM + '?text=' + msgWpp;
+  // Mostra tela de pagamento
+  document.getElementById('form-wrap').style.display = 'none';
+  var successEl = document.getElementById('form-success');
+  var primeiroNome = nome.split(' ')[0];
+
+  var tela = '';
+  tela += '<div class="success-line"></div>';
+  tela += '<div class="success-title" style="margin-bottom:6px">' + primeiroNome + ', escolha como pagar.</div>';
+  tela += '<p class="success-text" style="margin-bottom:24px">Realize o pagamento e em seguida envie o comprovante para o WhatsApp da Vânia.</p>';
+
+  tela += '<div style="background:var(--beige);padding:18px 24px;margin-bottom:20px;text-align:left">';
+  tela += '<div style="font-size:0.6rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);margin-bottom:4px">Investimento</div>';
+  tela += '<div style="font-family:Georgia,serif;font-size:2.6rem;font-weight:300;color:var(--ink);line-height:1">R$ 199</div>';
+  tela += '</div>';
+
+  tela += '<a href="https://mpago.la/1fksxsR" target="_blank" onclick="setTimeout(function(){ window.location.href='' + linkWpp + ''; }, 3000)" style="display:block;text-decoration:none;text-align:center;padding:16px;background:var(--ink);color:#fff;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;margin-bottom:10px">Pagar com PIX</a>';
+
+  tela += '<a href="https://mpago.li/2AEoJVU" target="_blank" onclick="setTimeout(function(){ window.location.href='' + linkWpp + ''; }, 3000)" style="display:block;text-decoration:none;text-align:center;padding:16px;background:var(--bordeaux);color:#fff;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;margin-bottom:20px">Pagar com Cartão — até 4x</a>';
+
+  tela += '<div style="height:1px;background:var(--beige);margin-bottom:20px"></div>';
+  tela += '<p style="font-size:0.78rem;color:var(--muted);text-align:center;margin-bottom:14px">Após pagar, clique abaixo para enviar o comprovante:</p>';
+
+  tela += '<a href="' + linkWpp + '" target="_blank" style="display:block;text-decoration:none;text-align:center;padding:16px;background:#25D366;color:#fff;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase">Enviar Comprovante no WhatsApp</a>';
+
+  successEl.innerHTML = tela;
+  successEl.classList.add('show');
 }
 
 
