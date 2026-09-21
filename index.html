@@ -1368,7 +1368,9 @@ async function enviarIntencao() {
 
   const indicacao_nome = document.getElementById('int_indicacao').value.trim();
 
-  if (!nome || !whatsapp || !email || !cidade) {
+  var cpf = document.getElementById('int_cpf').value.trim();
+
+  if (!nome || !whatsapp || !email || !cidade || !cpf) {
     showToast('Preencha os campos obrigatórios.'); return;
   }
   if (!como) {
@@ -1389,7 +1391,7 @@ async function enviarIntencao() {
   const payload = {
     tipo: 'INSCRICAO',
     timestamp: new Date().toLocaleString('pt-BR'),
-    nome, whatsapp, email, cidade,
+    nome, whatsapp, cpf, email, cidade,
     instagram: instagram || '—',
     comoConheceu: como === 'Indicação' ? 'Indicação — ' + indicacao_nome : como,
     valor,
@@ -1416,8 +1418,9 @@ async function enviarIntencao() {
     'Ola Vania! Acabei de realizar o pagamento do Destrave Seu Potencial. Segue o comprovante!' +
     '\n\nMeus dados:' +
     '\nNome: ' + nome +
-    '\nWhatsApp: ' + whatsapp +
-    '\nEmail: ' + email +
+    '\nTelefone: ' + whatsapp +
+    '\nCPF: ' + cpf +
+    '\nE-mail: ' + email +
     '\nCidade: ' + cidade +
     '\nValor pago: R$ 199'
   );
