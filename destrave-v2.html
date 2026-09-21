@@ -1269,9 +1269,9 @@ footer {
     <p>Preencha ao lado. Vânia analisa o seu perfil e entra em contato pelo WhatsApp para confirmar a sua vaga e alinhar os próximos passos.</p>
     <div class="invest-box">
       <span class="invest-label">Investimento</span>
-      <span class="invest-price">R$ 297</span>
-      <div class="invest-parcela">PIX · Nubank · Zero taxas</div>
-      <div style="margin-top:14px;padding-top:14px;border-top:1px solid var(--beige);font-size:0.78rem;color:var(--muted);line-height:1.6">Veio por indicação de uma participante?<br><strong style="color:var(--bordeaux)">R$ 199</strong> — valor especial aplicado automaticamente</div>
+      <span class="invest-price">R$ 199</span>
+      <div class="invest-parcela">PIX à vista · ou cartão em até 4x</div>
+      
     </div>
   </div>
 
@@ -1308,16 +1308,14 @@ footer {
       </div>
 
       <div class="form-group">
-        <label>Como conheceu o Destrave? *</label>
-        <select id="int_como" onchange="toggleIndicacao(this.value)">
+        <label>Como conheceu o Destrave?</label>
+        <select id="int_como">
           <option value="" disabled selected>Selecione</option>
           <option value="Indicação">Indicação</option>
           <option value="Instagram">Instagram</option>
+          <option value="WhatsApp">WhatsApp</option>
+          <option value="Outro">Outro</option>
         </select>
-      </div>
-      <div class="form-group" id="campo_indicacao" style="display:none">
-        <label>Quem te indicou? *</label>
-        <input type="text" id="int_indicacao" placeholder="Nome de quem indicou">
       </div>
 
       <div class="lgpd-row">
@@ -1354,8 +1352,9 @@ footer {
 <script>
 const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyIMpsw5LZR7x0CBDidy5BenwvEAbqxwANSBGdHA3e2YRQNepfEPTUIg3O6VnXMoPTb/exec';
 const CHAVE_PIX = '8baafcea-9d75-4c11-9669-0aa27fb6e624';
-const VALOR_199 = 'R$ 199';
-const VALOR_297 = 'R$ 297';
+const LINK_CARTAO = 'https://mpago.li/2AEoJVU';
+const LINK_PIX = 'https://mpago.la/1fksxsR';
+const VALOR = 'R$ 199';
 const WPP_NUM  = '5585996441698';
 
 async function enviarIntencao() {
@@ -1375,9 +1374,7 @@ async function enviarIntencao() {
   if (!como) {
     showToast('Informe como conheceu o Destrave.'); return;
   }
-  if (como === 'Indicação' && !indicacao_nome) {
-    showToast('Informe quem te indicou.'); return;
-  }
+
   if (!lgpd) {
     showToast('Aceite a Política de Privacidade para continuar.'); return;
   }
@@ -1386,9 +1383,8 @@ async function enviarIntencao() {
   btn.textContent = 'Processando...';
   btn.disabled = true;
 
-  // Lógica de preço
-  const indicacao = como === 'Indicação';
-  const valor     = indicacao ? VALOR_199 : VALOR_297;
+  // Valor único
+  var valor = VALOR;
 
   const payload = {
     tipo: 'INSCRICAO',
@@ -1412,18 +1408,18 @@ async function enviarIntencao() {
 
   // Monta mensagem e mostra tela de sucesso
   var primeiroNome = nome.split(' ')[0];
-  var chavePix = '8baafcea-9d75-4c11-9669-0aa27fb6e624';
-  var descValor = indicacao ? 'Valor especial - Indicacao de participante' : 'PIX a vista';
+  var chavePix  = '8baafcea-9d75-4c11-9669-0aa27fb6e624';
+  var linkCartao = 'https://mpago.li/2AEoJVU';
+  var linkPix    = 'https://mpago.la/1fksxsR';
 
   var msgWpp = encodeURIComponent(
-    'Ola Vania! Acabei de preencher o formulario do Destrave Seu Potencial e realizei o PIX. Segue o comprovante!' +
+    'Ola Vania! Acabei de realizar o pagamento do Destrave Seu Potencial. Segue o comprovante!' +
     '\n\nMeus dados:' +
     '\nNome: ' + nome +
     '\nWhatsApp: ' + whatsapp +
     '\nEmail: ' + email +
     '\nCidade: ' + cidade +
-    '\nComo conheceu: ' + (como === 'Indicacao' ? 'Indicacao de ' + indicacao_nome : como) +
-    '\nValor pago: ' + valor
+    '\nValor pago: R$ 199'
   );
 
   var linkWpp = 'https://wa.me/' + WPP_NUM + '?text=' + msgWpp;
@@ -1434,39 +1430,26 @@ async function enviarIntencao() {
   var html_success = '';
   html_success += '<div class="success-line"></div>';
   html_success += '<div class="success-title" style="margin-bottom:8px">' + primeiroNome + ', cadastro registrado.</div>';
-  html_success += '<p class="success-text">Realize o PIX abaixo e envie o comprovante para o WhatsApp da Vania para confirmar sua vaga.</p>';
+  html_success += '<p class="success-text">Escolha a forma de pagamento abaixo para garantir sua vaga.</p>';
 
-  html_success += '<div style="background:var(--beige);padding:20px 24px;margin-bottom:16px;text-align:left">';
+  html_success += '<div style="background:var(--beige);padding:20px 24px;margin-bottom:20px;text-align:left">';
   html_success += '<div style="font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Seu investimento</div>';
-  html_success += '<div style="font-family:Georgia,serif;font-size:2.4rem;font-weight:300;color:var(--ink);line-height:1;margin-bottom:4px">' + valor + '</div>';
-  html_success += '<div style="font-size:0.78rem;color:var(--muted)">' + descValor + '</div>';
+  html_success += '<div style="font-family:Georgia,serif;font-size:2.8rem;font-weight:300;color:var(--ink);line-height:1;margin-bottom:4px">R$ 199</div>';
+  html_success += '<div style="font-size:0.78rem;color:var(--muted)">PIX à vista · ou cartão em até 4x</div>';
   html_success += '</div>';
 
-  html_success += '<div style="background:var(--beige);padding:20px 24px;margin-bottom:16px;text-align:left">';
-  html_success += '<div style="font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);margin-bottom:10px">Chave PIX — Nubank</div>';
-  html_success += '<div style="font-size:0.82rem;color:var(--ink);font-weight:400;letter-spacing:0.04em;margin-bottom:12px;word-break:break-all">' + chavePix + '</div>';
-  html_success += '<button id="btn-pix-copy" style="background:var(--ink);color:#fff;border:none;padding:12px 24px;font-size:0.68rem;letter-spacing:0.2em;text-transform:uppercase;cursor:pointer;width:100%">Copiar Chave PIX</button>';
-  html_success += '</div>';
+  html_success += '<a href="' + linkPix + '" target="_blank" style="display:block;text-decoration:none;text-align:center;padding:15px 20px;background:var(--ink);color:#fff;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;margin-bottom:10px">Pagar com PIX</a>';
+
+  html_success += '<a href="' + linkCartao + '" target="_blank" style="display:block;text-decoration:none;text-align:center;padding:15px 20px;background:var(--bordeaux);color:#fff;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;margin-bottom:20px">Pagar com Cartão — até 4x</a>';
 
   html_success += '<div style="background:var(--warm);border:1px solid var(--beige);padding:16px 20px;margin-bottom:20px;text-align:left">';
-  html_success += '<p style="font-size:0.8rem;color:var(--muted);line-height:1.7;margin:0">Apos realizar o PIX, clique no botao abaixo e envie o comprovante para confirmar sua vaga.</p>';
+  html_success += '<p style="font-size:0.8rem;color:var(--muted);line-height:1.7;margin:0">Após o pagamento, envie o comprovante para o WhatsApp da Vânia para confirmar sua vaga.</p>';
   html_success += '</div>';
 
-  html_success += '<a href="' + linkWpp + '" target="_blank" style="display:block;text-decoration:none;text-align:center;padding:16px 20px;background:#25D366;color:#fff;font-size:0.76rem;letter-spacing:0.22em;text-transform:uppercase;margin-bottom:12px">Enviar Comprovante no WhatsApp</a>';
-  html_success += '<p style="font-size:0.74rem;color:var(--muted);text-align:center;line-height:1.6">O WhatsApp abre com seus dados ja preenchidos.</p>';
+  html_success += '<a href="' + linkWpp + '" target="_blank" style="display:block;text-decoration:none;text-align:center;padding:15px 20px;background:#25D366;color:#fff;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase">Enviar Comprovante no WhatsApp</a>';
 
   successEl.innerHTML = html_success;
   successEl.classList.add('show');
-
-  // Botao copiar PIX
-  document.getElementById('btn-pix-copy').addEventListener('click', function() {
-    navigator.clipboard.writeText(chavePix).then(function() {
-      document.getElementById('btn-pix-copy').textContent = 'Copiado!';
-      setTimeout(function() {
-        document.getElementById('btn-pix-copy').textContent = 'Copiar Chave PIX';
-      }, 2000);
-    });
-  });
 }
 
 function toggleIndicacao(val) {
