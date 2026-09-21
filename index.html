@@ -1263,10 +1263,10 @@ footer {
 ══════════════════════════════════════════ -->
 <div class="intent-section" id="intencao">
   <div class="intent-left fade">
-    <span class="label">Intenção de Vaga</span>
+    <span class="label">Garanta sua Vaga</span>
     <div class="rule"></div>
-    <h2>Demonstre sua<br><em>intenção de vaga</em></h2>
-    <p>Preencha ao lado. Vânia analisa o seu perfil e entra em contato pelo WhatsApp para confirmar a sua vaga e alinhar os próximos passos.</p>
+    <h2>Garanta sua<br><em>vaga agora</em></h2>
+    <p>Preencha seus dados ao lado. Ao finalizar, você será direcionada direto para o WhatsApp da Vânia para confirmar sua vaga e realizar o pagamento.</p>
     <div class="invest-box">
       <span class="invest-label">Investimento</span>
       <span class="invest-price">R$ 199</span>
@@ -1277,8 +1277,8 @@ footer {
 
   <div class="intent-form fade" style="transition-delay:0.1s">
     <div id="form-wrap">
-      <div class="form-title">Quero <em>minha vaga</em></div>
-      <p class="form-sub">Após o preenchimento, você receberá o contato de Vânia pelo WhatsApp.</p>
+      <div class="form-title">Garanta <em>sua vaga</em></div>
+      <p class="form-sub">Preencha seus dados e fale com Vânia direto pelo WhatsApp.</p>
 
       <div class="form-row">
         <div class="form-group">
@@ -1328,7 +1328,7 @@ footer {
         <label for="int_lgpd">Concordo com a <a href="#">Política de Privacidade</a> e autorizo o uso dos meus dados conforme a <a href="#">LGPD</a>.</label>
       </div>
 
-      <button class="btn-submit" id="btn_enviar" onclick="enviarIntencao()">Demonstrar Intenção de Vaga</button>
+      <button class="btn-submit" id="btn_enviar" onclick="enviarIntencao()">Garantir Minha Vaga</button>
     </div>
 
     <div class="form-success" id="form-success">
@@ -1363,47 +1363,41 @@ const VALOR = 'R$ 199';
 const WPP_NUM  = '5585996441698';
 
 async function enviarIntencao() {
-  const nome      = document.getElementById('int_nome').value.trim();
-  const whatsapp  = document.getElementById('int_whatsapp').value.trim();
-  const email     = document.getElementById('int_email').value.trim();
-  const cidade    = document.getElementById('int_cidade').value.trim();
-  const instagram = document.getElementById('int_instagram').value.trim();
-  const como      = document.getElementById('int_como').value;
-  const lgpd      = document.getElementById('int_lgpd').checked;
-
-  const indicacao_nome = document.getElementById('int_indicacao').value.trim();
-
-  var cpf = document.getElementById('int_cpf').value.trim();
+  var nome      = document.getElementById('int_nome').value.trim();
+  var whatsapp  = document.getElementById('int_whatsapp').value.trim();
+  var email     = document.getElementById('int_email').value.trim();
+  var cidade    = document.getElementById('int_cidade').value.trim();
+  var cpf       = document.getElementById('int_cpf').value.trim();
+  var instagram = document.getElementById('int_instagram').value.trim();
+  var como      = document.getElementById('int_como').value;
+  var lgpd      = document.getElementById('int_lgpd').checked;
 
   if (!nome || !whatsapp || !email || !cidade || !cpf) {
-    showToast('Preencha os campos obrigatórios.'); return;
+    showToast('Preencha todos os campos obrigatórios.'); return;
   }
-  if (!como) {
-    showToast('Informe como conheceu o Destrave.'); return;
-  }
-
   if (!lgpd) {
     showToast('Aceite a Política de Privacidade para continuar.'); return;
   }
 
-  const btn = document.getElementById('btn_enviar');
-  btn.textContent = 'Processando...';
+  var btn = document.getElementById('btn_enviar');
+  btn.textContent = 'Aguarde...';
   btn.disabled = true;
 
-  // Valor único
-  var valor = VALOR;
-
-  const payload = {
+  // Salva na planilha
+  var payload = {
     tipo: 'INSCRICAO',
     timestamp: new Date().toLocaleString('pt-BR'),
-    nome, whatsapp, cpf, email, cidade,
+    nome: nome,
+    whatsapp: whatsapp,
+    cpf: cpf,
+    email: email,
+    cidade: cidade,
     instagram: instagram || '—',
-    comoConheceu: como === 'Indicação' ? 'Indicação — ' + indicacao_nome : como,
-    valor,
+    comoConheceu: como || '—',
+    valor: 'R$ 199',
     status: 'Aguardando pagamento'
   };
 
-  // Envia para Google Sheets
   try {
     await fetch(APPS_SCRIPT_URL, {
       method: 'POST',
@@ -1413,60 +1407,23 @@ async function enviarIntencao() {
     });
   } catch(e) {}
 
-  // Monta mensagem e mostra tela de sucesso
-  var primeiroNome = nome.split(' ')[0];
-  var chavePix  = '8baafcea-9d75-4c11-9669-0aa27fb6e624';
-  var linkCartao = 'https://mpago.li/2AEoJVU';
-  var linkPix    = 'https://mpago.la/1fksxsR';
-
+  // Monta mensagem e vai direto pro WhatsApp
   var msgWpp = encodeURIComponent(
-    'Ola Vania! Acabei de realizar o pagamento do Destrave Seu Potencial. Segue o comprovante!' +
+    'Ola Vania! Tenho interesse no Destrave Seu Potencial e quero garantir minha vaga.' +
     '\n\nMeus dados:' +
     '\nNome: ' + nome +
     '\nTelefone: ' + whatsapp +
     '\nCPF: ' + cpf +
     '\nE-mail: ' + email +
     '\nCidade: ' + cidade +
-    '\nValor pago: R$ 199'
+    (instagram && instagram !== '—' ? '\nInstagram: ' + instagram : '') +
+    (como ? '\nComo conheceu: ' + como : '') +
+    '\n\nValor: R$ 199'
   );
 
-  var linkWpp = 'https://wa.me/' + WPP_NUM + '?text=' + msgWpp;
-
-  document.getElementById('form-wrap').style.display = 'none';
-  var successEl = document.getElementById('form-success');
-
-  var html_success = '';
-  html_success += '<div class="success-line"></div>';
-  html_success += '<div class="success-title" style="margin-bottom:8px">' + primeiroNome + ', cadastro registrado.</div>';
-  html_success += '<p class="success-text">Escolha a forma de pagamento abaixo para garantir sua vaga.</p>';
-
-  html_success += '<div style="background:var(--beige);padding:20px 24px;margin-bottom:20px;text-align:left">';
-  html_success += '<div style="font-size:0.62rem;letter-spacing:0.22em;text-transform:uppercase;color:var(--muted);margin-bottom:6px">Seu investimento</div>';
-  html_success += '<div style="font-family:Georgia,serif;font-size:2.8rem;font-weight:300;color:var(--ink);line-height:1;margin-bottom:4px">R$ 199</div>';
-  html_success += '<div style="font-size:0.78rem;color:var(--muted)">PIX à vista · ou cartão em até 4x</div>';
-  html_success += '</div>';
-
-  html_success += '<a href="' + linkPix + '" target="_blank" style="display:block;text-decoration:none;text-align:center;padding:15px 20px;background:var(--ink);color:#fff;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;margin-bottom:10px">Pagar com PIX</a>';
-
-  html_success += '<a href="' + linkCartao + '" target="_blank" style="display:block;text-decoration:none;text-align:center;padding:15px 20px;background:var(--bordeaux);color:#fff;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;margin-bottom:20px">Pagar com Cartão — até 4x</a>';
-
-  html_success += '<div style="background:var(--warm);border:1px solid var(--beige);padding:16px 20px;margin-bottom:20px;text-align:left">';
-  html_success += '<p style="font-size:0.8rem;color:var(--muted);line-height:1.7;margin:0">Após o pagamento, envie o comprovante para o WhatsApp da Vânia para confirmar sua vaga.</p>';
-  html_success += '</div>';
-
-  html_success += '<a href="' + linkWpp + '" target="_blank" style="display:block;text-decoration:none;text-align:center;padding:15px 20px;background:#25D366;color:#fff;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase">Enviar Comprovante no WhatsApp</a>';
-
-  successEl.innerHTML = html_success;
-  successEl.classList.add('show');
+  window.location.href = 'https://wa.me/' + WPP_NUM + '?text=' + msgWpp;
 }
 
-function toggleIndicacao(val) {
-  const campo = document.getElementById('campo_indicacao');
-  campo.style.display = val === 'Indicação' ? 'block' : 'none';
-  if (val !== 'Indicação') {
-    document.getElementById('int_indicacao').value = '';
-  }
-}
 
 function showToast(msg) {
   document.querySelectorAll('.toast').forEach(t => t.remove());
