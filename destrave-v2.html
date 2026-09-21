@@ -1476,9 +1476,9 @@ async function enviarIntencao() {
   tela += '<div style="font-family:Georgia,serif;font-size:2.6rem;font-weight:300;color:var(--ink);line-height:1">R$ 199</div>';
   tela += '</div>';
 
-  tela += '<a href="https://mpago.la/1fksxsR" target="_blank" onclick="setTimeout(function(){ window.location.href='' + linkWpp + ''; }, 3000)" style="display:block;text-decoration:none;text-align:center;padding:16px;background:var(--ink);color:#fff;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;margin-bottom:10px">Pagar com PIX</a>';
+  tela += '<a href="https://mpago.la/1fksxsR" target="_blank" style="display:block;text-decoration:none;text-align:center;padding:16px;background:var(--ink);color:#fff;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;margin-bottom:10px">Pagar com PIX</a>';
 
-  tela += '<a href="https://mpago.li/2AEoJVU" target="_blank" onclick="setTimeout(function(){ window.location.href='' + linkWpp + ''; }, 3000)" style="display:block;text-decoration:none;text-align:center;padding:16px;background:var(--bordeaux);color:#fff;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;margin-bottom:20px">Pagar com Cartão — até 4x</a>';
+  tela += '<a href="https://mpago.li/2AEoJVU" target="_blank" style="display:block;text-decoration:none;text-align:center;padding:16px;background:var(--bordeaux);color:#fff;font-size:0.72rem;letter-spacing:0.22em;text-transform:uppercase;margin-bottom:20px">Pagar com Cartão — até 4x</a>';
 
   tela += '<div style="height:1px;background:var(--beige);margin-bottom:20px"></div>';
   tela += '<p style="font-size:0.78rem;color:var(--muted);text-align:center;margin-bottom:14px">Após pagar, clique abaixo para enviar o comprovante:</p>';
@@ -1507,11 +1507,31 @@ document.getElementById('int_whatsapp').addEventListener('input', function(e) {
   e.target.value = v;
 });
 
-// Scroll fade
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('in'); });
-}, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-document.querySelectorAll('.fade').forEach(el => observer.observe(el));
+// Init
+document.addEventListener('DOMContentLoaded', function() {
+  // Máscara telefone
+  var wppEl = document.getElementById('int_whatsapp');
+  if (wppEl) wppEl.addEventListener('input', function(e) {
+    var v = e.target.value.replace(/\D/g,'');
+    v = v.replace(/(\d{2})(\d)/,'($1) $2');
+    v = v.replace(/(\d{5})(\d{1,4})$/,'$1-$2');
+    e.target.value = v;
+  });
+  // Máscara CPF
+  var cpfEl = document.getElementById('int_cpf');
+  if (cpfEl) cpfEl.addEventListener('input', function(e) {
+    var v = e.target.value.replace(/\D/g,'');
+    v = v.replace(/(\d{3})(\d)/,'$1.$2');
+    v = v.replace(/(\d{3})(\d)/,'$1.$2');
+    v = v.replace(/(\d{3})(\d{1,2})$/,'$1-$2');
+    e.target.value = v;
+  });
+  // Scroll fade
+  var obs = new IntersectionObserver(function(entries) {
+    entries.forEach(function(e) { if (e.isIntersecting) e.target.classList.add('in'); });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.fade').forEach(function(el) { obs.observe(el); });
+});
 </script>
 </body>
 </html>
