@@ -1203,7 +1203,8 @@ footer {
     <div class="invest-box">
       <span class="invest-label">Investimento</span>
       <span class="invest-price">R$ 199</span>
-      <div class="invest-parcela">PIX à vista · ou cartão em até 4x</div>
+      <div style="font-size:0.78rem;color:var(--muted);margin-top:4px">Valor cheio: <span style="text-decoration:line-through">R$ 297</span> · <strong style="color:var(--bordeaux)">1º lote</strong></div>
+      <div class="invest-parcela" style="margin-top:8px"><span style="text-decoration:line-through;color:var(--muted)">R$ 297</span> &nbsp;·&nbsp; <strong style="color:var(--bordeaux)">1º lote por R$ 199</strong></div>
       
     </div>
   </div>
@@ -1346,7 +1347,7 @@ async function enviarIntencao() {
     '\nCidade: ' + cidade +
     (instagram && instagram !== '—' ? '\nInstagram: ' + instagram : '') +
     (como ? '\nComo conheceu: ' + como : '') +
-    '\n\nValor pago: R$ 199'
+    '\n\nValor pago: R$ 199 (1º lote)'
   );
   var linkWpp = 'https://wa.me/' + WPP_NUM + '?text=' + msgWpp;
 
