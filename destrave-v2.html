@@ -1017,10 +1017,19 @@ footer {
   <a href="#intencao" class="btn btn-dark">Garantir Minha Vaga</a>
 </nav>
 
-<!-- BANNER 1º LOTE -->
-<div style="background:var(--bordeaux);color:#fff;text-align:center;padding:10px 6%;font-size:0.78rem;letter-spacing:0.18em;text-transform:uppercase;position:fixed;top:66px;left:0;right:0;z-index:99">
-  1º Lote · <strong style="font-size:1rem;letter-spacing:0.05em">R$ 199</strong> &nbsp;·&nbsp; <span style="text-decoration:line-through;opacity:0.7">R$ 297</span> &nbsp;·&nbsp; Vagas Limitadas &nbsp;
-  <a href="#intencao" style="color:#fff;text-decoration:underline;letter-spacing:0.12em">Garantir agora</a>
+<!-- BANNER 1º LOTE + COUNTDOWN -->
+<div id="banner-lote" style="background:var(--bordeaux);color:#fff;text-align:center;padding:9px 4%;font-size:0.72rem;letter-spacing:0.14em;text-transform:uppercase;position:fixed;top:66px;left:0;right:0;z-index:99;display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap">
+  <span>1º Lote &nbsp;<strong style="font-size:0.95rem">R$ 199</strong> &nbsp;<span style="text-decoration:line-through;opacity:0.65">R$ 297</span></span>
+  <span style="opacity:0.45">|</span>
+  <span style="display:flex;align-items:center;gap:6px">
+    <span style="opacity:0.85">Imersão em</span>
+    <span id="cd-dias" style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;min-width:24px">--</span><span style="opacity:0.75;font-size:0.65rem">dias</span>
+    <span style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;min-width:22px" id="cd-hrs">--</span><span style="opacity:0.75;font-size:0.65rem">h</span>
+    <span style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;min-width:22px" id="cd-min">--</span><span style="opacity:0.75;font-size:0.65rem">min</span>
+    <span style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;min-width:22px" id="cd-seg">--</span><span style="opacity:0.75;font-size:0.65rem">s</span>
+  </span>
+  <span style="opacity:0.45">|</span>
+  <a href="#intencao" style="color:#fff;text-decoration:underline;letter-spacing:0.12em;font-size:0.68rem">Garantir minha vaga</a>
 </div>
 
 
@@ -1406,6 +1415,32 @@ document.getElementById('int_whatsapp').addEventListener('input', function(e) {
 
 // Init
 document.addEventListener('DOMContentLoaded', function() {
+  // Countdown 24/10/2026 09:00 horário de Fortaleza (UTC-3)
+  function atualizarCountdown() {
+    var alvo = new Date('2026-10-24T09:00:00-03:00').getTime();
+    var agora = Date.now();
+    var diff = alvo - agora;
+    var elDias = document.getElementById('cd-dias');
+    var elHrs  = document.getElementById('cd-hrs');
+    var elMin  = document.getElementById('cd-min');
+    var elSeg  = document.getElementById('cd-seg');
+    if (!elDias) return;
+    if (diff <= 0) {
+      elDias.textContent = '0'; elHrs.textContent = '0';
+      elMin.textContent = '0'; elSeg.textContent = '0';
+      return;
+    }
+    var dias = Math.floor(diff / 86400000);
+    var hrs  = Math.floor((diff % 86400000) / 3600000);
+    var min  = Math.floor((diff % 3600000) / 60000);
+    var seg  = Math.floor((diff % 60000) / 1000);
+    elDias.textContent = dias;
+    elHrs.textContent  = String(hrs).padStart(2,'0');
+    elMin.textContent  = String(min).padStart(2,'0');
+    elSeg.textContent  = String(seg).padStart(2,'0');
+  }
+  atualizarCountdown();
+  setInterval(atualizarCountdown, 1000);
   // Máscara telefone
   var wppEl = document.getElementById('int_whatsapp');
   if (wppEl) wppEl.addEventListener('input', function(e) {
